@@ -38,9 +38,16 @@ async function getAllProducts(req, res) {
 
 async function getProductById(req, res) {
   try {
+    console.log("Received Product ID:", req.params.productId);
+
     const foundProduct = await Product.findById(req.params.productId);
-    if (!foundProduct)
+
+    console.log("Found Product:", foundProduct);
+
+    if (!foundProduct) {
       return res.status(404).json({ message: "Product Not Found" });
+    }
+
     res.status(200).json(foundProduct);
   } catch (err) {
     console.log(err);
@@ -82,7 +89,7 @@ async function updateProduct(req, res) {
   }
 }
 
-async function deleteProduct() {
+async function deleteProduct(req, res) {
   try {
     const deletedProduct = await Product.findByIdAndDelete(
       req.params.productId,
