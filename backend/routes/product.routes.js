@@ -7,6 +7,10 @@ router.post("/", productController.createProduct);
 
 router.get("/", standardLimiter, productController.getAllProducts);
 
+router.get("/low-stock", productController.getLowStockProducts);
+
+router.get("/statistics", productController.getStatistics);
+
 router.get(
   "/:productId",
   standardLimiter,

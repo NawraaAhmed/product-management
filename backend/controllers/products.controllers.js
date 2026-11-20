@@ -104,10 +104,44 @@ async function deleteProduct(req, res) {
   }
 }
 
+async function getLowStockProducts(req, res) {
+  try {
+    const lowStockProducts = await Product.find({ quantity: { $lt: 3 } });
+    res.status(200).json(lowStockProducts);
+  } catch (err) {
+    console.log(err);
+    res.status(500).json({ message: "Internal Server Error" });
+  }
+}
+
+async function getStatistics(req, res) {
+  try {
+    const allProducts = await Product.find();
+
+    const totalProducts = allProducts.length;
+
+    const totalValue = allProducts.reduce(
+      (sum, product) => sum + product.price * product.quantity,
+      0,
+    );
+
+    const lowStockItems = allProducts.filter(
+      (product) => product.quantity < 3,
+    ).length;
+
+    res.status(200).json({ totalProducts, totalValue, lowStockItems });
+  } catch (err) {
+    console.log(err);
+    res.status(500).json({ message: "Internal Server Error" });
+  }
+}
+
 module.exports = {
   createProduct,
   getAllProducts,
   getProductById,
   updateProduct,
   deleteProduct,
+  getLowStockProducts,
+  getStatistics,
 };
