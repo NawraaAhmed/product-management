@@ -33,10 +33,22 @@ async function deleteProduct(productId) {
   return response.data;
 }
 
+async function getLowStockProducts() {
+  const response = await api.get("/products/low-stock");
+  return response.data;
+}
+
+async function getStatistics() {
+  const response = await api.get("/products/statistics");
+  return response.data;
+}
+
 export {
   getAllProducts,
   getProductById,
   createNewProduct,
   updateProduct,
   deleteProduct,
+  getLowStockProducts,
+  getStatistics,
 };

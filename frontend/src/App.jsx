@@ -5,6 +5,7 @@ import Homepage from "./pages/Homepage";
 import CreateProduct from "./pages/CreateProduct";
 import EditProduct from "./pages/EditProduct";
 import Navbar from "./components/Navbar";
+import Statistics from "./pages/Statistics";
 
 function App() {
   return (
@@ -16,6 +17,7 @@ function App() {
         <Route path="/products/:productId" element={<ProductDetails />} />
         <Route path="/products/create" element={<CreateProduct />} />
         <Route path="/products/:productId/edit" element={<EditProduct />} />
+        <Route path="/statistics" element={<Statistics />} />
       </Routes>
     </div>
   );

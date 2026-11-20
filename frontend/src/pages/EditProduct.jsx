@@ -8,6 +8,7 @@ function EditProduct() {
     age: 0,
     breed: "",
   });
+  const [error, setError] = useState(null);
   const { productId } = useParams();
 
   async function loadProduct() {
@@ -27,8 +28,12 @@ function EditProduct() {
 
   async function handleSubmit(event) {
     event.preventDefault();
-    const updatedProduct = await updateProduct(productId, formData);
-    navigate("/products");
+    try {
+      await updateProduct(productId, formData);
+      navigate("/products");
+    } catch (err) {
+      setError(err.response?.data?.message || err.message);
+    }
   }
   return (
     <div>
@@ -46,6 +51,8 @@ function EditProduct() {
 
         <button>Create Product</button>
       </form>
+
+      <p className="error">{error}</p>
     </div>
   );
 }
